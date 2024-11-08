@@ -15,6 +15,11 @@ pipeline {
 			}
 		}
 		stage('Deploy') {
+			when {
+				not {
+					equals expected: 'none', actual: params.DEPLOY_ENVIRONMENT
+				}
+			}
 			steps {
 				bat 'copy target\\ROOT.war D:\\devenv\\software\\' + params.DEPLOY_ENVIRONMENT + '\\apache-tomcat-9.0.96\\webapps'
 			}
